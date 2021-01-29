@@ -18,10 +18,10 @@ const request = https.get(`https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex
         body +=  data.toString();
     })
 
-    //Parse the data
     response.on('end', () => {
-        console.log(JSON.parse(body));
+        //Parse the data
+        const profile = JSON.parse(body);
+        //Print the data
+        printMessage(profile.msgArray.map(nf => nf.nf), profile.msgArray.map(z => z.z));
     })
-
-    //Print the data
 });
