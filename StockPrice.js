@@ -1,8 +1,27 @@
 //Problem: We need a simple way to get the stockPrice of a compony
-//Solution: Use Node.js to connect to Yahoo Finance'API to get the stock price information to print out
+//Solution: Use Node.js to connect to Taiwan Stock Exchange'API to get the stock price information to print out
+
+const https = require('https');
+const class_stockCode = "tse_2330"
+
+function printMessage(compony, stockPrice){
+    const message = `Today, the price of ${compony} is ${stockPrice} NTD.`;
+    console.log(message);
+}
+
+//Connect to the API URL (https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=${class_stockCode}.tw&json=1&delay=0&_=1611905929306)
+const request = https.get(`https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=${class_stockCode}.tw&json=1&delay=0&_=1611905929306`, response =>{
+    console.log(response.statusCode);
+
+    //Read the data 
+    response.on('data', data =>{
+        console.log('Data:', data.toString());
+    })
+    //Parse the data
+    //Print the data
+});
 
 
-//Connect to the API URL ()
 //Read the data 
 //Parse the data
 //Print the data
