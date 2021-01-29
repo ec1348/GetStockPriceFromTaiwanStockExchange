@@ -12,16 +12,16 @@ function printMessage(compony, stockPrice){
 //Connect to the API URL (https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=${class_stockCode}.tw&json=1&delay=0&_=1611905929306)
 const request = https.get(`https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=${class_stockCode}.tw&json=1&delay=0&_=1611905929306`, response =>{
     console.log(response.statusCode);
-
+    let body = "";
     //Read the data 
     response.on('data', data =>{
-        console.log('Data:', data.toString());
+        body +=  data.toString();
     })
+
     //Parse the data
+    response.on('end', () => {
+        console.log(JSON.parse(body));
+    })
+
     //Print the data
 });
-
-
-//Read the data 
-//Parse the data
-//Print the data
