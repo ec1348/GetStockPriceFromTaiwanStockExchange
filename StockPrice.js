@@ -3,6 +3,10 @@
 
 const https = require('https');
 
+function printError(error){
+    console.error(error.message);
+}
+
 function printMessage(compony, stockPrice){
     const message = `Today, the price of ${compony} is ${stockPrice} NTD.`;
     console.log(message);
@@ -19,15 +23,21 @@ function getProfile(class_stockCode){
             })
 
             response.on('end', () => {
+                try{
                 //Parse the data
                 const profile = JSON.parse(body);
                 //Print the data
                 printMessage(profile.msgArray.map(nf => nf.nf),  profile.msgArray.map(z => z.z));
+                } catch(error) {
+                    printError(error);
+                }
             })
         });
+        //error handling event when is not a supported URL protocol
         request.on('error', error => console.error(`Problem with request: ${error.message}`));
     }catch (error){
-        console.error(error.message);
+        //error handling event when the URL is not valid
+         printError(error);
     }
 }
 
