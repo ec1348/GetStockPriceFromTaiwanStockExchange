@@ -1,5 +1,3 @@
-//Problem: We need a simple way to get the stockPrice of a compony
-//Solution: Use Node.js to connect to Taiwan Stock Exchange'API to get the stock price information to print out
 
 //Require https module
 const https = require('https');
@@ -16,7 +14,7 @@ function printMessage(compony, stockPrice){
     console.log(message);
 }
 
-function getProfile(class_stockCode){
+function get(class_stockCode){
     try{
         //Connect to the API URL (https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=${class_stockCode}.tw&json=1&delay=0&_=1611905929306)
         const request = https.get(`https://mis.twse.com.tw/stock/api/getStockInfo.jsp?ex_ch=${class_stockCode}.tw&json=1&delay=0&_=1611905929306`, response =>{
@@ -49,5 +47,5 @@ function getProfile(class_stockCode){
     }
 }
 
-const getStockCode = process.argv.slice(2);
-getStockCode.forEach(getProfile);
+//explicitly state the created API function to be exported  get /*name for api*/ = get /*function wants to be exported*/
+module.exports.get = get;
